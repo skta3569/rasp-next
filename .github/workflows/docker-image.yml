@@ -11,6 +11,9 @@ on:
 jobs:
   build:
     runs-on: self-hosted
+    permissions:
+      packages: write
+      contents: read
 
     steps:
     - uses: actions/checkout@v4
