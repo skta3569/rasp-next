@@ -6,7 +6,7 @@ services:
     networks:
       - rasp-next-network
   rasp-next:
-    image: skta3569/rasp-next:latest
+    image: ghcr.io/skta3569/rasp-next:latest
     ports:
       - "3000:3000"
     restart: unless-stopped
