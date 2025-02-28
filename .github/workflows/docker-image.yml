@@ -38,7 +38,7 @@ jobs:
         platforms: ${{ matrix.platform }}
         push: ${{ github.event_name != 'pull_request' }}
         tags: |
-          ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:${{ github.event.inputs.branch }}
+          ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:${{ github.ref }}
           ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:${{ github.sha }}
           ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:latest
   deploy:
@@ -46,8 +46,9 @@ jobs:
     needs: build
     steps:
     - uses: actions/checkout@v4
-      with:
-        ref: ${{ github.event.inputs.branch }}
     
+    - name: Pull latest Docker images
+      run: docker compose pull
+
     - name: Docker Compose Up
-      run: docker-compose up -d
+      run: docker compose up -d
