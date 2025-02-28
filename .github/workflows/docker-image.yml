@@ -38,7 +38,7 @@ jobs:
         platforms: ${{ matrix.platform }}
         push: ${{ github.event_name != 'pull_request' }}
         tags: |
-          ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:${{ github.ref }}
+          ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:${{ github.ref_name  }}
           ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:${{ github.sha }}
           ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:latest
   deploy:
