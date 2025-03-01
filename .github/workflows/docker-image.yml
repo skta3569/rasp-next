@@ -3,15 +3,21 @@ name: Docker Image CI
 on:
   workflow_dispatch:
 
+run-name: Build Docker Image [${{ github.ref_name }}]
+
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.runner }}
     permissions:
       packages: write
       contents: read
     strategy:
       matrix:
-        platform: [linux/amd64, linux/arm64]
+        include:
+          - platform: linux/amd64
+            runner: ubuntu-latest
+          - platform: linux/arm64
+            runner: ARM64
 
     steps:
     - uses: actions/checkout@v4
@@ -38,7 +44,7 @@ jobs:
         platforms: ${{ matrix.platform }}
         push: ${{ github.event_name != 'pull_request' }}
         tags: |
-          ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:${{ github.ref_name  }}
+          ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:${{ github.ref_name }}
           ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:${{ github.sha }}
           ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:latest
   deploy:
