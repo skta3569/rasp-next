@@ -19,6 +19,7 @@ export default function Home() {
           </li>
           <li>Save and see your changes instantly.</li>
           <li>デプロイできるようにしました</li>
+          <li>試しに変更</li>
         </ol>
 
         <div className={styles.ctas}>
